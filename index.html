@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmallGame - Play EchoSqueak 2D | Time Manipulation Puzzle Game</title>
-    <meta name="description" content="Play EchoSqueak 2D online for free. Guide a lab rat through dangerous puzzles using echoes of your past in this innovative time manipulation game.">
+    <title>SmallGame - Play Motor Tour | Exciting Motorcycle Racing Game</title>
+    <meta name="description" content="Play Motor Tour for free. Drive powerful motorcycles, weave through traffic, and experience endless highways and intense one-on-one races.">
     <link rel="canonical" href="https://smallgame.one">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -13,11 +13,11 @@
                 extend: {
                     colors: {
                         game: {
-                            primary: '#6C63FF',
-                            secondary: '#3F3D56',
-                            accent: '#FF6584',
-                            dark: '#2D2B43',
-                            light: '#F5F8FF'
+                            primary: '#FF6B00',
+                            secondary: '#004E98',
+                            accent: '#FF304F',
+                            dark: '#1A1A2E',
+                            light: '#F8F8F8'
                         }
                     }
                 }
@@ -25,127 +25,408 @@
         }
     </script>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #6C63FF 0%, #3F3D56 100%);
+            background: linear-gradient(135deg, #004E98 0%, #1A1A2E 100%);
             min-height: 100vh;
+            overflow-x: hidden;
         }
+
+        /* Game container styles */
         .game-container {
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            background: rgba(26, 26, 46, 0.95);
             border-radius: 1rem;
-            border: 1px solid rgba(108, 99, 255, 0.2);
+            border: 1px solid rgba(255, 107, 0, 0.3);
+            margin-bottom: 2rem;
         }
-        .game-frame {
-            height: 600px;
+        
+        .game-wrapper {
+            position: relative;
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
+            margin: 0 auto;
+            aspect-ratio: 16/9;
+        }
+        
+        .game-frame {
+            width: 100%;
+            height: 100%;
             border: none;
             border-radius: 0.5rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
+        
+        /* Content card styles */
         .content-card {
             backdrop-filter: blur(5px);
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(26, 26, 46, 0.9);
             border-radius: 1rem;
-            border: 1px solid rgba(108, 99, 255, 0.2);
+            border: 1px solid rgba(255, 107, 0, 0.3);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
         }
+        
         .content-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
         }
+        
+        /* Colors and accent text */
         .accent-text {
-            color: #FF6584;
+            color: #FF6B00;
         }
-        @media (max-width: 640px) {
-            .game-frame {
-                height: 450px;
+        
+        /* Control key styles */
+        .key-control {
+            background-color: #2A2A2A;
+            color: #FFF;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-family: monospace;
+            margin-right: 0.5rem;
+            display: inline-block;
+        }
+        
+        /* Feature icons */
+        .feature-icon {
+            background-color: #FF6B00;
+            color: #1A1A2E;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        
+        /* Fullscreen button */
+        .fullscreen-btn {
+            background-color: #FF6B00;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem auto;
+            box-shadow: 0 4px 10px rgba(255, 107, 0, 0.3);
+        }
+        
+        .fullscreen-btn:hover {
+            background-color: #E55A00;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 107, 0, 0.4);
+        }
+        
+        .fullscreen-btn svg {
+            margin-right: 0.5rem;
+            width: 20px;
+            height: 20px;
+        }
+        
+        /* Game mode cards */
+        .mode-card {
+            background: rgba(20, 20, 35, 0.6);
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            border-left: 4px solid #FF6B00;
+            transition: all 0.3s ease;
+        }
+        
+        .mode-card:hover {
+            background: rgba(30, 30, 50, 0.8);
+            transform: translateX(5px);
+        }
+        
+        /* Loading indicator */
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            transition: opacity 0.5s ease;
+            border-radius: 0.5rem;
+        }
+        
+        .loading-spinner {
+            border: 5px solid rgba(255, 107, 0, 0.3);
+            border-radius: 50%;
+            border-top: 5px solid #FF6B00;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        /* Fullscreen mode */
+        .game-frame.fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            max-width: 100vw;
+            z-index: 9999;
+            border-radius: 0;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .game-wrapper {
+                aspect-ratio: 4/3;
             }
+            
+            .content-card {
+                padding: 1rem;
+            }
+            
+            .mode-card {
+                margin-bottom: 1rem;
+            }
+        }
+        
+        /* Page transition animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        main {
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        header {
+            animation: fadeIn 0.6s ease-out;
         }
     </style>
 </head>
-<body>
+<body class="text-white">
     <div class="container mx-auto px-4 py-8">
-        <header class="text-center mb-8">
-            <h1 class="text-4xl md:text-5xl font-bold text-game-light mb-4">
-                SmallGame: <span class="accent-text">EchoSqueak 2D</span>
+        <header class="text-center mb-10 mt-4">
+            <h1 class="text-4xl md:text-5xl font-bold text-game-light mb-6">
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-game-primary to-game-accent">Motor Tour</span>
             </h1>
-            <p class="text-xl text-game-light mb-6">
-                Navigate through time echoes in this innovative puzzle platformer!
+            <p class="text-xl text-game-light max-w-2xl mx-auto">
+                Drive powerful motorcycles, weave through busy traffic, and experience endless highways and intense one-on-one racing!
             </p>
         </header>
 
-        <main>
-            <div class="game-container mx-auto p-4 md:p-6 mb-8">
-                <h2 class="text-2xl font-bold text-game-dark mb-4 text-center">
-                    Play EchoSqueak 2D Online
+        <main class="max-w-6xl mx-auto">
+            <div class="game-container p-4 md:p-6 rounded-xl">
+                <h2 class="text-2xl font-bold text-game-primary mb-4 text-center">
+                    Play Motor Tour Online
                 </h2>
-                <div class="flex justify-center mb-6">
-                    <iframe src="https://guselect.itch.io/echosqueak2d" class="game-frame" title="Play EchoSqueak 2D Game Online"></iframe>
+                <div class="flex justify-center">
+                    <div class="game-wrapper">
+                        <div id="loading" class="loading-overlay">
+                            <div class="loading-spinner"></div>
+                        </div>
+                        <iframe id="game-iframe" src="https://www.onlinegames.io/motor-tour/" class="game-frame" title="Play Motor Tour Online" allow="fullscreen" allowfullscreen="true"></iframe>
+                    </div>
+                </div>
+                <div class="text-center mt-6">
+                    <button id="fullscreen-btn" class="fullscreen-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5" />
+                        </svg>
+                        Fullscreen
+                    </button>
                 </div>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-8 mb-8">
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
                 <div class="content-card p-6 md:p-8">
-                    <h2 class="text-2xl font-bold text-game-primary mb-4">
+                    <h2 class="text-2xl font-bold text-game-primary mb-4 flex items-center">
+                        <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path>
+                        </svg>
                         How to Play
                     </h2>
-                    <p class="text-gray-700 mb-4">
-                        EchoSqueak 2D is a time manipulation game where you guide a laboratory rat through dangerous puzzles. The unique twist: you never go back in time, but instead create echoes of your past actions to progress forward!
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Motor Tour is a free premium browser game that puts you behind the handlebars of powerful motorcycles as you weave through busy traffic, experience endless highways, and engage in intense one-on-one races. Choose your preferred game mode: Career, Special Events, Endless, or Racing.
                     </p>
-                    <div class="bg-gray-100 rounded-lg p-4 mt-4">
-                        <h3 class="font-bold text-game-secondary mb-2">Controls:</h3>
-                        <ul class="space-y-2">
-                            <li><span class="font-semibold">Arrow Keys</span> - Move</li>
-                            <li><span class="font-semibold">Spacebar</span> - Jump</li>
-                            <li><span class="font-semibold">R</span> - Restart</li>
-                            <li><span class="font-semibold">Shift</span> - Create Echo</li>
-                        </ul>
+                    <div class="bg-gray-800 rounded-lg p-5 mt-4">
+                        <h3 class="font-bold text-game-primary mb-3 flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zm7-10a1 1 0 01.707.293l.707.707L15 4.707l.707-.707A1 1 0 0117 5a1 1 0 01-.293.707L15.293 7l1.414 1.414A1 1 0 0116 10a1 1 0 01-.707-.293L14 8.414l-1.293 1.293A1 1 0 0112 10a1 1 0 01-.293-.707L13.121 7 11.414 5.293A1 1 0 0112 4z" clip-rule="evenodd"></path>
+                            </svg>
+                            Controls:
+                        </h3>
+                        <div class="grid grid-cols-2 gap-2 text-gray-300">
+                            <div><span class="key-control">W</span> Accelerate</div>
+                            <div><span class="key-control">A</span> Turn Left</div>
+                            <div><span class="key-control">D</span> Turn Right</div>
+                            <div><span class="key-control">S</span> Brake</div>
+                            <div><span class="key-control">Left Shift</span> Nitro Boost</div>
+                            <div><span class="key-control">ESC</span> Back/Pause</div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="content-card p-6 md:p-8">
-                    <h2 class="text-2xl font-bold text-game-primary mb-4">
+                    <h2 class="text-2xl font-bold text-game-primary mb-4 flex items-center">
+                        <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"></path>
+                        </svg>
                         Game Features
                     </h2>
-                    <ul class="list-disc pl-6 text-gray-700 mb-4 space-y-2">
-                        <li>Innovative time echo mechanics</li>
-                        <li>Beautiful pixel art graphics</li>
-                        <li>Challenging puzzle platforming</li>
-                        <li>Smooth controls and animations</li>
-                        <li>Relaxing soundtrack that enhances gameplay</li>
-                        <li>Brain-teasing puzzles that increase in difficulty</li>
+                    <ul class="space-y-4 text-gray-300 mb-4">
+                        <li class="flex items-start">
+                            <span class="feature-icon">🏍️</span>
+                            <span><strong class="text-game-primary">40 Motorcycles:</strong> Each with its own style, customize your license plate to show your personality</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="feature-icon">⚙️</span>
+                            <span><strong class="text-game-primary">Deep Upgrade System:</strong> Enhance power, turbo, brakes, acceleration, handling, and nitro performance</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="feature-icon">🎮</span>
+                            <span><strong class="text-game-primary">Multiple Game Modes:</strong> Career, Special Events, Endless Mode and Racing Mode, each with unique challenges</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="feature-icon">🎨</span>
+                            <span><strong class="text-game-primary">Advanced 3D Graphics:</strong> Impressive visuals from the gleam of motorcycles to city details</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="feature-icon">🎁</span>
+                            <span><strong class="text-game-primary">Online Rewards:</strong> Quickly earn cash, coins, or blueprints by watching ads</span>
+                        </li>
                     </ul>
-                    <p class="text-sm text-gray-500 mt-4 italic">
-                        "EchoSqueak is a time manipulation game where the player never goes back in time. Guide a lab rat through a dangerous lab using echoes of your past to move forward."
+                    <p class="text-sm text-gray-400 mt-6 italic border-l-4 border-game-primary pl-4">
+                        "If you enjoy traffic games, thrilling near misses, and plenty of upgrades, this game is for you. Feel the rush of weaving through roads, collecting cash, nitro, or XP to leave your opponents in the dust."
                     </p>
                 </div>
             </div>
 
-            <div class="content-card p-6 md:p-8 mb-8">
-                <h2 class="text-2xl font-bold text-game-primary mb-4">
-                    About EchoSqueak 2D
+            <div class="content-card p-6 md:p-8 mb-12">
+                <h2 class="text-2xl font-bold text-game-primary mb-6 flex items-center">
+                    <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z"></path>
+                    </svg>
+                    Game Modes Explained
                 </h2>
-                <p class="text-gray-700 mb-4">
-                    Created by developer guselect in just 3 days for "Code For A Cause 2025", EchoSqueak 2D features a unique gameplay mechanic where you create echoes of your past actions to solve puzzles. The game combines adorable pixel art with clever level design to create a challenging yet satisfying experience.
-                </p>
-                <p class="text-gray-700 mb-4">
-                    The procedural tail animation of the rat character adds a charming detail to the game's already polished visuals. With relaxing music by abstraction, the game provides an immersive puzzle-solving atmosphere that keeps players engaged level after level.
-                </p>
-                <div class="bg-gray-100 rounded-lg p-4 mt-6">
-                    <h3 class="font-bold text-game-secondary mb-2">Pro Tips:</h3>
-                    <p class="text-gray-600">
-                        Plan your moves carefully before creating echoes. Sometimes you'll need to think several steps ahead to position your echoes in the right places. Don't be afraid to restart a level if your echoes aren't optimally placed!
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="mode-card">
+                        <h3 class="font-bold text-game-primary mb-3">Career Mode</h3>
+                        <p class="text-gray-300">
+                            Complete various tasks under time pressure. The game starts with relatively simple tasks and gradually increases in difficulty. Prove you can handle sharp turns and avoid reckless drivers while collecting enough cash to unlock more upgrades.
+                        </p>
+                    </div>
+                    <div class="mode-card">
+                        <h3 class="font-bold text-game-primary mb-3">Endless Mode</h3>
+                        <p class="text-gray-300">
+                            Ride along busy highways until you crash. This is the perfect mode to get a feel for your motorcycle's handling capabilities and is ideal for beginners to practice.
+                        </p>
+                    </div>
+                    <div class="mode-card">
+                        <h3 class="font-bold text-game-primary mb-3">Racing Mode</h3>
+                        <p class="text-gray-300">
+                            Challenge powerful AI opponents in intense one-on-one duels, collecting nitro on the road to gain an edge over your competition. Show off your speed and skill to become the true king of the road!
+                        </p>
+                    </div>
+                    <div class="mode-card">
+                        <h3 class="font-bold text-game-primary mb-3">Special Events</h3>
+                        <p class="text-gray-300">
+                            Want something different? Special Events mode offers fun missions with juicy loot rewards. Complete these special tasks to earn extra vehicles and upgrade materials.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 rounded-lg p-5 mt-8 border-t border-game-primary">
+                    <h3 class="font-bold text-game-primary mb-3 flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                        </svg>
+                        Gaming Tips:
+                    </h3>
+                    <p class="text-gray-300 leading-relaxed">
+                        We recommend practicing in Endless Mode first to get a feel for your motorcycle's handling. Use nitro to boost on straightaways but slow down before turns to avoid crashes. Continuously upgrade your motorcycle's performance, especially handling and braking, which will help you better control your vehicle at high speeds.
                     </p>
                 </div>
             </div>
         </main>
 
-        <footer class="text-center text-game-light py-4">
-            <p>&copy; 2023 SmallGame.one - The best place to play online games</p>
-            <p class="text-sm mt-2">EchoSqueak 2D created by <a href="https://guselect.itch.io" class="underline" target="_blank" rel="noopener">guselect</a></p>
+        <footer class="text-center text-gray-400 py-6 border-t border-gray-800 mt-8">
+            <p>&copy; 2025 SmallGame.one - The Best Place for Online Games</p>
+            <p class="text-sm mt-2">Motor Tour developed by Wolves Interactive</p>
         </footer>
     </div>
+    
+    <script>
+        const gameIframe = document.getElementById('game-iframe');
+        const loadingOverlay = document.getElementById('loading');
+        const fullscreenBtn = document.getElementById('fullscreen-btn');
+        
+        // Hide loading indicator when game is loaded
+        gameIframe.addEventListener('load', () => {
+            loadingOverlay.classList.add('hidden');
+            
+            // Try to communicate with iframe to tell the game to hide UI (if supported)
+            try {
+                gameIframe.contentWindow.postMessage({
+                    type: 'LOAD_GAME_ONLY',
+                    hideUI: true
+                }, '*');
+            } catch (e) {
+                console.log('Unable to communicate directly with iframe');
+            }
+        });
+        
+        // Also hide loading indicator if loading takes too long
+        setTimeout(() => {
+            loadingOverlay.classList.add('hidden');
+        }, 5000);
+        
+        // Fullscreen functionality
+        fullscreenBtn.addEventListener('click', () => {
+            if (gameIframe.classList.contains('fullscreen')) {
+                gameIframe.classList.remove('fullscreen');
+                document.body.style.overflow = 'auto';
+                fullscreenBtn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5" />
+                    </svg>
+                    Fullscreen
+                `;
+            } else {
+                gameIframe.classList.add('fullscreen');
+                document.body.style.overflow = 'hidden';
+                fullscreenBtn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                    Exit Fullscreen
+                `;
+            }
+        });
+    </script>
 </body>
 </html> 
