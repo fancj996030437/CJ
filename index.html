@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmallGame - Play EchoSqueak 2D | Time Manipulation Puzzle Game</title>
+    <meta name="description" content="Play EchoSqueak 2D online for free. Guide a lab rat through dangerous puzzles using echoes of your past in this innovative time manipulation game.">
+    <link rel="canonical" href="https://smallgame.one">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        game: {
+                            primary: '#6C63FF',
+                            secondary: '#3F3D56',
+                            accent: '#FF6584',
+                            dark: '#2D2B43',
+                            light: '#F5F8FF'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #6C63FF 0%, #3F3D56 100%);
+            min-height: 100vh;
+        }
+        .game-container {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1rem;
+            border: 1px solid rgba(108, 99, 255, 0.2);
+        }
+        .game-frame {
+            height: 600px;
+            width: 100%;
+            max-width: 800px;
+            border: none;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .content-card {
+            backdrop-filter: blur(5px);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1rem;
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+        .accent-text {
+            color: #FF6584;
+        }
+        @media (max-width: 640px) {
+            .game-frame {
+                height: 450px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-game-light mb-4">
+                SmallGame: <span class="accent-text">EchoSqueak 2D</span>
+            </h1>
+            <p class="text-xl text-game-light mb-6">
+                Navigate through time echoes in this innovative puzzle platformer!
+            </p>
+        </header>
+
+        <main>
+            <div class="game-container mx-auto p-4 md:p-6 mb-8">
+                <h2 class="text-2xl font-bold text-game-dark mb-4 text-center">
+                    Play EchoSqueak 2D Online
+                </h2>
+                <div class="flex justify-center mb-6">
+                    <iframe src="https://guselect.itch.io/echosqueak2d" class="game-frame" title="Play EchoSqueak 2D Game Online"></iframe>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div class="content-card p-6 md:p-8">
+                    <h2 class="text-2xl font-bold text-game-primary mb-4">
+                        How to Play
+                    </h2>
+                    <p class="text-gray-700 mb-4">
+                        EchoSqueak 2D is a time manipulation game where you guide a laboratory rat through dangerous puzzles. The unique twist: you never go back in time, but instead create echoes of your past actions to progress forward!
+                    </p>
+                    <div class="bg-gray-100 rounded-lg p-4 mt-4">
+                        <h3 class="font-bold text-game-secondary mb-2">Controls:</h3>
+                        <ul class="space-y-2">
+                            <li><span class="font-semibold">Arrow Keys</span> - Move</li>
+                            <li><span class="font-semibold">Spacebar</span> - Jump</li>
+                            <li><span class="font-semibold">R</span> - Restart</li>
+                            <li><span class="font-semibold">Shift</span> - Create Echo</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-card p-6 md:p-8">
+                    <h2 class="text-2xl font-bold text-game-primary mb-4">
+                        Game Features
+                    </h2>
+                    <ul class="list-disc pl-6 text-gray-700 mb-4 space-y-2">
+                        <li>Innovative time echo mechanics</li>
+                        <li>Beautiful pixel art graphics</li>
+                        <li>Challenging puzzle platforming</li>
+                        <li>Smooth controls and animations</li>
+                        <li>Relaxing soundtrack that enhances gameplay</li>
+                        <li>Brain-teasing puzzles that increase in difficulty</li>
+                    </ul>
+                    <p class="text-sm text-gray-500 mt-4 italic">
+                        "EchoSqueak is a time manipulation game where the player never goes back in time. Guide a lab rat through a dangerous lab using echoes of your past to move forward."
+                    </p>
+                </div>
+            </div>
+
+            <div class="content-card p-6 md:p-8 mb-8">
+                <h2 class="text-2xl font-bold text-game-primary mb-4">
+                    About EchoSqueak 2D
+                </h2>
+                <p class="text-gray-700 mb-4">
+                    Created by developer guselect in just 3 days for "Code For A Cause 2025", EchoSqueak 2D features a unique gameplay mechanic where you create echoes of your past actions to solve puzzles. The game combines adorable pixel art with clever level design to create a challenging yet satisfying experience.
+                </p>
+                <p class="text-gray-700 mb-4">
+                    The procedural tail animation of the rat character adds a charming detail to the game's already polished visuals. With relaxing music by abstraction, the game provides an immersive puzzle-solving atmosphere that keeps players engaged level after level.
+                </p>
+                <div class="bg-gray-100 rounded-lg p-4 mt-6">
+                    <h3 class="font-bold text-game-secondary mb-2">Pro Tips:</h3>
+                    <p class="text-gray-600">
+                        Plan your moves carefully before creating echoes. Sometimes you'll need to think several steps ahead to position your echoes in the right places. Don't be afraid to restart a level if your echoes aren't optimally placed!
+                    </p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="text-center text-game-light py-4">
+            <p>&copy; 2023 SmallGame.one - The best place to play online games</p>
+            <p class="text-sm mt-2">EchoSqueak 2D created by <a href="https://guselect.itch.io" class="underline" target="_blank" rel="noopener">guselect</a></p>
+        </footer>
+    </div>
+</body>
+</html> 
